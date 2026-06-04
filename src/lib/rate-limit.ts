@@ -25,9 +25,9 @@ export function isRateLimited(ip: string): boolean {
 // Alte Einträge periodisch bereinigen (läuft im Hintergrund)
 const cleanup = setInterval(() => {
   const now = Date.now()
-  for (const [key, entry] of store.entries()) {
+  store.forEach((entry, key) => {
     if (entry.resetAt < now) store.delete(key)
-  }
+  })
 }, WINDOW_MS)
 
 // Timer soll den Prozess nicht am Beenden hindern
