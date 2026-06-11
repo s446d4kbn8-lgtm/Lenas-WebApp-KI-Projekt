@@ -28,7 +28,7 @@ export default async function AdminPage() {
             <h1 className="text-xl font-bold text-gray-900">Dashboard</h1>
             <p className="text-xs text-gray-400 mt-0.5">Angemeldet als {user.email}</p>
           </div>
-          <LogoutButton />
+          <LogoutButton redirectTo="/login" />
         </div>
       </header>
       <div className="max-w-5xl mx-auto px-6 py-8">

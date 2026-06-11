@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { validateCsrfToken } from '@/lib/csrf'
 import { isRateLimited } from '@/lib/rate-limit'
+import { getAuthUser } from '@/lib/auth'
 import { z } from 'zod'
 
 const schema = z.object({
@@ -35,6 +36,15 @@ export async function POST(req: NextRequest) {
     )
   }
 
+  // Login erforderlich
+  const authUser = await getAuthUser()
+  if (!authUser) {
+    return NextResponse.json(
+      { error: 'Bitte melde dich an, um eine Nachricht zu hinterlassen.' },
+      { status: 401 }
+    )
+  }
+
   // Rate Limiting
   const ip = getClientIp(req)
   if (isRateLimited(ip)) {
@@ -60,6 +70,7 @@ export async function POST(req: NextRequest) {
       email: email?.trim() || null,
       content: content.trim(),
       ip,
+      userId: authUser.userId,
     },
   })
 

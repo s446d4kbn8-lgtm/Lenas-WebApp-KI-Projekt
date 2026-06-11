@@ -9,7 +9,7 @@ function getCsrfToken(): string {
   return match ? decodeURIComponent(match[1]) : ''
 }
 
-export default function LoginForm({ redirectTo = '/admin' }: { redirectTo?: string }) {
+export default function RegisterForm() {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -22,7 +22,7 @@ export default function LoginForm({ redirectTo = '/admin' }: { redirectTo?: stri
     setError('')
 
     try {
-      const res = await fetch('/api/auth/login', {
+      const res = await fetch('/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -32,11 +32,11 @@ export default function LoginForm({ redirectTo = '/admin' }: { redirectTo?: stri
       })
 
       if (res.ok) {
-        router.push(redirectTo)
+        router.push('/')
         router.refresh()
       } else {
         const data = await res.json().catch(() => ({}))
-        setError(data.error ?? 'Login fehlgeschlagen.')
+        setError(data.error ?? 'Registrierung fehlgeschlagen.')
         setLoading(false)
       }
     } catch {
@@ -73,11 +73,13 @@ export default function LoginForm({ redirectTo = '/admin' }: { redirectTo?: stri
           id="password"
           type="password"
           required
-          autoComplete="current-password"
+          minLength={8}
+          autoComplete="new-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
         />
+        <p className="text-xs text-gray-400 mt-1">Mindestens 8 Zeichen</p>
       </div>
 
       {error && (
@@ -91,7 +93,7 @@ export default function LoginForm({ redirectTo = '/admin' }: { redirectTo?: stri
         disabled={loading}
         className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium py-3 rounded-lg transition-colors text-sm"
       >
-        {loading ? 'Anmelden…' : 'Anmelden'}
+        {loading ? 'Wird erstellt…' : 'Konto erstellen'}
       </button>
     </form>
   )

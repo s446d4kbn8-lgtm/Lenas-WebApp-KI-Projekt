@@ -11,33 +11,54 @@ function generateToken(): string {
   return Array.from(buf, (b) => b.toString(16).padStart(2, '0')).join('')
 }
 
-async function isAuthenticated(req: NextRequest): Promise<boolean> {
+interface AuthPayload {
+  userId: string
+  email: string
+  role: string
+}
+
+async function getAuthPayload(req: NextRequest): Promise<AuthPayload | null> {
   const token = req.cookies.get('auth_token')?.value
-  if (!token) return false
+  if (!token) return null
   try {
-    await jwtVerify(token, secret)
-    return true
+    const { payload } = await jwtVerify(token, secret)
+    return {
+      userId: payload.userId as string,
+      email: payload.email as string,
+      role: (payload.role as string) ?? 'user',
+    }
   } catch {
-    return false
+    return null
   }
 }
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
+  const auth = await getAuthPayload(request)
 
   // Geschützte Seiten: /admin/*
   if (pathname.startsWith('/admin')) {
-    if (!(await isAuthenticated(request))) {
+    if (!auth || auth.role !== 'admin') {
       return NextResponse.redirect(new URL('/login', request.url))
     }
   }
 
-  // Geschützte API: DELETE /api/messages/[id]
+  // Nachricht erstellen erfordert Login
+  if (pathname === '/api/messages' && request.method === 'POST') {
+    if (!auth) {
+      return NextResponse.json(
+        { error: 'Bitte melde dich an, um eine Nachricht zu hinterlassen.' },
+        { status: 401 }
+      )
+    }
+  }
+
+  // Geschützte API: DELETE /api/messages/[id] – nur Admin
   if (
     pathname.match(/^\/api\/messages\/[^/]+$/) &&
     request.method === 'DELETE'
   ) {
-    if (!(await isAuthenticated(request))) {
+    if (!auth || auth.role !== 'admin') {
       return NextResponse.json({ error: 'Nicht autorisiert' }, { status: 401 })
     }
   }

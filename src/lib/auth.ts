@@ -11,10 +11,11 @@ const MAX_AGE = 60 * 60 * 24 // 24 Stunden
 export interface AuthPayload {
   userId: string
   email: string
+  role: string
 }
 
 export async function createToken(payload: AuthPayload): Promise<string> {
-  return new SignJWT({ userId: payload.userId, email: payload.email })
+  return new SignJWT({ userId: payload.userId, email: payload.email, role: payload.role })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .setExpirationTime('24h')
@@ -27,6 +28,7 @@ export async function verifyToken(token: string): Promise<AuthPayload | null> {
     return {
       userId: payload.userId as string,
       email: payload.email as string,
+      role: (payload.role as string) ?? 'user',
     }
   } catch {
     return null
