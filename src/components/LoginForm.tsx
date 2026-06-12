@@ -48,10 +48,10 @@ export default function LoginForm({ redirectTo = '/admin' }: { redirectTo?: stri
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 space-y-4"
+      className="bg-zinc-900 rounded-xl shadow-sm border border-zinc-800 p-8 space-y-4"
     >
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1.5">
+        <label htmlFor="email" className="block text-sm font-medium text-zinc-300 mb-1.5">
           E-Mail-Adresse
         </label>
         <input
@@ -61,12 +61,12 @@ export default function LoginForm({ redirectTo = '/admin' }: { redirectTo?: stri
           autoComplete="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+          className="w-full bg-zinc-950 border border-zinc-700 text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
         />
       </div>
 
       <div>
-        <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1.5">
+        <label htmlFor="password" className="block text-sm font-medium text-zinc-300 mb-1.5">
           Passwort
         </label>
         <input
@@ -76,12 +76,12 @@ export default function LoginForm({ redirectTo = '/admin' }: { redirectTo?: stri
           autoComplete="current-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+          className="w-full bg-zinc-950 border border-zinc-700 text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
         />
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700">
+        <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 text-sm text-red-400">
           {error}
         </div>
       )}
@@ -89,7 +89,7 @@ export default function LoginForm({ redirectTo = '/admin' }: { redirectTo?: stri
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium py-3 rounded-lg transition-colors text-sm"
+        className="w-full bg-violet-600 hover:bg-violet-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium py-3 rounded-lg transition-colors text-sm"
       >
         {loading ? 'Anmelden…' : 'Anmelden'}
       </button>

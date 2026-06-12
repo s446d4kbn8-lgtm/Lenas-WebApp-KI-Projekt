@@ -57,13 +57,13 @@ export default function MessageForm() {
 
   if (status === 'success') {
     return (
-      <div className="bg-green-50 border border-green-200 rounded-xl p-10 text-center">
-        <div className="text-green-500 text-5xl mb-3">✓</div>
-        <h2 className="text-xl font-semibold text-green-800 mb-1">Nachricht gesendet!</h2>
-        <p className="text-green-700 text-sm mb-5">Vielen Dank – wir haben Ihre Nachricht erhalten.</p>
+      <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-10 text-center">
+        <div className="text-emerald-400 text-5xl mb-3">✓</div>
+        <h2 className="text-xl font-semibold text-emerald-300 mb-1">Nachricht gesendet!</h2>
+        <p className="text-emerald-400/80 text-sm mb-5">Vielen Dank – wir haben deine Nachricht erhalten.</p>
         <button
           onClick={() => setStatus('idle')}
-          className="text-sm text-green-700 underline hover:no-underline"
+          className="text-sm text-emerald-300 underline hover:no-underline"
         >
           Weitere Nachricht senden
         </button>
@@ -72,7 +72,7 @@ export default function MessageForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 space-y-5">
+    <form onSubmit={handleSubmit} className="bg-zinc-900 rounded-xl shadow-sm border border-zinc-800 p-8 space-y-5">
       {/* Honeypot-Feld: per CSS versteckt, Bots füllen es aus */}
       <input
         type="text"
@@ -86,8 +86,8 @@ export default function MessageForm() {
       />
 
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1.5">
-          Name <span className="text-red-500">*</span>
+        <label htmlFor="name" className="block text-sm font-medium text-zinc-300 mb-1.5">
+          Name <span className="text-red-400">*</span>
         </label>
         <input
           id="name"
@@ -97,15 +97,15 @@ export default function MessageForm() {
           maxLength={100}
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Ihr Name"
-          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+          placeholder="Dein Name"
+          className="w-full bg-zinc-950 border border-zinc-700 text-white placeholder-zinc-500 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
         />
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1.5">
+        <label htmlFor="email" className="block text-sm font-medium text-zinc-300 mb-1.5">
           E-Mail{' '}
-          <span className="font-normal text-gray-400">(optional)</span>
+          <span className="font-normal text-zinc-500">(optional)</span>
         </label>
         <input
           id="email"
@@ -113,14 +113,14 @@ export default function MessageForm() {
           maxLength={200}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="ihre@email.de"
-          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+          placeholder="deine@email.de"
+          className="w-full bg-zinc-950 border border-zinc-700 text-white placeholder-zinc-500 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
         />
       </div>
 
       <div>
-        <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-1.5">
-          Nachricht <span className="text-red-500">*</span>
+        <label htmlFor="content" className="block text-sm font-medium text-zinc-300 mb-1.5">
+          Nachricht <span className="text-red-400">*</span>
         </label>
         <textarea
           id="content"
@@ -130,14 +130,14 @@ export default function MessageForm() {
           rows={6}
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          placeholder="Ihre Nachricht..."
-          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-y"
+          placeholder="Deine Nachricht..."
+          className="w-full bg-zinc-950 border border-zinc-700 text-white placeholder-zinc-500 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition resize-y"
         />
-        <p className="text-xs text-gray-400 mt-1 text-right">{content.length} / 2000</p>
+        <p className="text-xs text-zinc-500 mt-1 text-right">{content.length} / 2000</p>
       </div>
 
       {status === 'error' && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700">
+        <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 text-sm text-red-400">
           {errorMsg}
         </div>
       )}
@@ -145,7 +145,7 @@ export default function MessageForm() {
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium py-3 rounded-lg transition-colors text-sm"
+        className="w-full bg-violet-600 hover:bg-violet-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium py-3 rounded-lg transition-colors text-sm"
       >
         {status === 'loading' ? 'Wird gesendet…' : 'Nachricht senden'}
       </button>
