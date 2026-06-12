@@ -21,12 +21,12 @@ export default async function AdminPage() {
   }))
 
   return (
-    <main className="min-h-screen bg-zinc-950">
-      <header className="bg-zinc-900 border-b border-zinc-800 sticky top-0 z-10">
+    <main className="min-h-screen">
+      <header className="bg-white border-b-2 border-dashed border-amber-800/30 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
           <div>
-            <h1 className="text-xl font-bold text-white">Dashboard</h1>
-            <p className="text-xs text-zinc-500 mt-0.5">Angemeldet als {user.email}</p>
+            <h1 className="font-handwriting text-2xl font-bold text-stone-800">Dashboard</h1>
+            <p className="text-xs text-stone-500 mt-0.5">Angemeldet als {user.email}</p>
           </div>
           <LogoutButton redirectTo="/login" />
         </div>

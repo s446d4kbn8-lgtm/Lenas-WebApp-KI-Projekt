@@ -48,10 +48,12 @@ export default function RegisterForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-zinc-900 rounded-xl shadow-sm border border-zinc-800 p-8 space-y-4"
+      className="relative bg-white border border-stone-300 rounded-sm shadow-xl p-8 space-y-4 -rotate-1"
     >
+      <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-red-500 shadow" />
+
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-zinc-300 mb-1.5">
+        <label htmlFor="email" className="block text-sm font-medium text-stone-700 mb-1.5">
           E-Mail-Adresse
         </label>
         <input
@@ -61,12 +63,12 @@ export default function RegisterForm() {
           autoComplete="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full bg-zinc-950 border border-zinc-700 text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
+          className="w-full bg-stone-50 border border-stone-300 text-stone-900 rounded px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition"
         />
       </div>
 
       <div>
-        <label htmlFor="password" className="block text-sm font-medium text-zinc-300 mb-1.5">
+        <label htmlFor="password" className="block text-sm font-medium text-stone-700 mb-1.5">
           Passwort
         </label>
         <input
@@ -77,13 +79,13 @@ export default function RegisterForm() {
           autoComplete="new-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full bg-zinc-950 border border-zinc-700 text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
+          className="w-full bg-stone-50 border border-stone-300 text-stone-900 rounded px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition"
         />
-        <p className="text-xs text-zinc-500 mt-1">Mindestens 8 Zeichen</p>
+        <p className="text-xs text-stone-500 mt-1">Mindestens 8 Zeichen</p>
       </div>
 
       {error && (
-        <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 text-sm text-red-400">
+        <div className="bg-red-100 border border-red-300 rounded p-3 text-sm text-red-700">
           {error}
         </div>
       )}
@@ -91,7 +93,7 @@ export default function RegisterForm() {
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-violet-600 hover:bg-violet-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium py-3 rounded-lg transition-colors text-sm"
+        className="w-full bg-orange-400 hover:bg-orange-300 disabled:opacity-50 disabled:cursor-not-allowed border border-orange-500/40 text-stone-900 font-medium py-3 rounded shadow-sm transition-colors text-sm"
       >
         {loading ? 'Wird erstellt…' : 'Konto erstellen'}
       </button>

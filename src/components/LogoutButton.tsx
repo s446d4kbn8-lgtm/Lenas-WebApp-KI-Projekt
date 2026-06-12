@@ -18,7 +18,7 @@ export default function LogoutButton({ redirectTo = '/' }: { redirectTo?: string
     <button
       onClick={handleLogout}
       disabled={loading}
-      className="text-sm text-zinc-400 hover:text-white border border-zinc-700 rounded-lg px-4 py-2 hover:bg-zinc-900 disabled:opacity-50 transition-colors"
+      className="text-sm text-stone-700 hover:text-stone-900 bg-white border border-stone-300 rounded px-4 py-2 hover:bg-stone-50 disabled:opacity-50 transition-colors shadow-sm"
     >
       {loading ? 'Wird abgemeldet…' : 'Abmelden'}
     </button>

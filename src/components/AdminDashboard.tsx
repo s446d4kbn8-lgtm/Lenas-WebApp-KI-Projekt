@@ -60,11 +60,11 @@ export default function AdminDashboard({ messages: initial }: { messages: Messag
 
   if (messages.length === 0) {
     return (
-      <div className="bg-zinc-900 rounded-xl border border-zinc-800 p-16 text-center">
-        <p className="text-zinc-500 text-lg">Noch keine Nachrichten vorhanden.</p>
+      <div className="bg-white rounded-sm border border-stone-200 shadow-sm p-16 text-center">
+        <p className="text-stone-400 text-lg">Noch keine Nachrichten vorhanden.</p>
         <button
           onClick={() => router.refresh()}
-          className="mt-4 text-sm text-violet-400 hover:underline"
+          className="mt-4 text-sm text-orange-600 hover:underline"
         >
           Aktualisieren
         </button>
@@ -75,12 +75,12 @@ export default function AdminDashboard({ messages: initial }: { messages: Messag
   return (
     <div>
       <div className="flex items-center justify-between mb-5">
-        <p className="text-sm text-zinc-400">
+        <p className="text-sm text-stone-500">
           {messages.length} {messages.length === 1 ? 'Nachricht' : 'Nachrichten'}
         </p>
         <button
           onClick={() => router.refresh()}
-          className="text-xs text-zinc-400 hover:text-white border border-zinc-700 rounded-lg px-3 py-1.5 hover:bg-zinc-800 transition-colors"
+          className="text-xs text-stone-600 hover:text-stone-900 border border-stone-300 rounded px-3 py-1.5 hover:bg-stone-50 transition-colors bg-white shadow-sm"
         >
           Aktualisieren
         </button>
@@ -90,23 +90,23 @@ export default function AdminDashboard({ messages: initial }: { messages: Messag
         {messages.map((msg) => (
           <article
             key={msg.id}
-            className="bg-zinc-900 rounded-xl border border-zinc-800 p-6 hover:border-zinc-700 transition-colors"
+            className="bg-white rounded-sm border border-stone-200 shadow-sm p-6 hover:shadow-md transition-shadow"
           >
             <div className="flex items-start gap-4">
               <div className="flex-1 min-w-0">
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2">
-                  <span className="font-semibold text-white">{msg.name}</span>
+                  <span className="font-semibold text-stone-900">{msg.name}</span>
                   {msg.email && (
                     <a
                       href={`mailto:${msg.email}`}
-                      className="text-violet-400 text-sm hover:underline truncate max-w-xs"
+                      className="text-orange-600 text-sm hover:underline truncate max-w-xs"
                     >
                       {msg.email}
                     </a>
                   )}
-                  <span className="text-xs text-zinc-500">{formatDate(msg.createdAt)}</span>
+                  <span className="text-xs text-stone-400">{formatDate(msg.createdAt)}</span>
                 </div>
-                <p className="text-zinc-300 text-sm leading-relaxed whitespace-pre-wrap break-words">
+                <p className="text-stone-700 text-sm leading-relaxed whitespace-pre-wrap break-words">
                   {msg.content}
                 </p>
               </div>
@@ -114,7 +114,7 @@ export default function AdminDashboard({ messages: initial }: { messages: Messag
                 onClick={() => handleDelete(msg.id)}
                 disabled={deletingId === msg.id}
                 title="Nachricht löschen"
-                className="flex-shrink-0 text-zinc-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg p-2 transition-colors disabled:opacity-50"
+                className="flex-shrink-0 text-stone-400 hover:text-red-500 hover:bg-red-50 rounded p-2 transition-colors disabled:opacity-50"
               >
                 {deletingId === msg.id ? <SpinIcon /> : <TrashIcon />}
               </button>

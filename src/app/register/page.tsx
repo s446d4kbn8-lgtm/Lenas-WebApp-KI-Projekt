@@ -11,18 +11,18 @@ export default async function RegisterPage() {
   return (
     <>
       <Header user={null} />
-      <main className="min-h-[calc(100vh-65px)] flex items-center justify-center p-4 bg-zinc-950">
+      <main className="min-h-[calc(100vh-86px)] flex items-center justify-center p-4">
         <div className="w-full max-w-sm">
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-white">Konto erstellen</h1>
-            <p className="text-zinc-400 text-sm mt-1">
+            <h1 className="font-handwriting text-4xl font-bold text-stone-800">Konto erstellen</h1>
+            <p className="text-stone-600 text-sm mt-1">
               Registriere dich, um eine Nachricht zu hinterlassen.
             </p>
           </div>
           <RegisterForm />
-          <p className="text-center text-sm text-zinc-400 mt-4">
+          <p className="text-center text-sm text-stone-600 mt-6">
             Schon ein Konto?{' '}
-            <Link href="/user-login" className="text-violet-400 hover:underline">
+            <Link href="/user-login" className="text-orange-600 font-medium hover:underline">
               Anmelden
             </Link>
           </p>
