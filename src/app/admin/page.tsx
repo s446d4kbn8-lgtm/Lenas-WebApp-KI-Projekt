@@ -22,11 +22,11 @@ export default async function AdminPage() {
 
   return (
     <main className="min-h-screen">
-      <header className="bg-white border-b-2 border-dashed border-amber-800/30 sticky top-0 z-10">
+      <header className="border-b border-white/10 bg-slate-950/60 backdrop-blur-xl sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
           <div>
-            <h1 className="font-handwriting text-2xl font-bold text-stone-800">Dashboard</h1>
-            <p className="text-xs text-stone-500 mt-0.5">Angemeldet als {user.email}</p>
+            <h1 className="text-xl font-bold">Dashboard</h1>
+            <p className="text-xs text-white/50 mt-0.5">Angemeldet als {user.email}</p>
           </div>
           <LogoutButton redirectTo="/login" />
         </div>

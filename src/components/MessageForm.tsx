@@ -10,7 +10,6 @@ function getCsrfToken(): string {
 
 export default function MessageForm() {
   const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
   const [content, setContent] = useState('')
   const [honeypot, setHoneypot] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
@@ -35,7 +34,7 @@ export default function MessageForm() {
           'Content-Type': 'application/json',
           'X-CSRF-Token': getCsrfToken(),
         },
-        body: JSON.stringify({ name, email: email || undefined, content }),
+        body: JSON.stringify({ name, content }),
       })
 
       const data = await res.json().catch(() => ({}))
@@ -43,7 +42,6 @@ export default function MessageForm() {
       if (res.ok) {
         setStatus('success')
         setName('')
-        setEmail('')
         setContent('')
       } else {
         setErrorMsg(data.error ?? 'Ein unbekannter Fehler ist aufgetreten.')
@@ -57,14 +55,13 @@ export default function MessageForm() {
 
   if (status === 'success') {
     return (
-      <div className="relative bg-green-200 border border-green-300/60 rounded-sm shadow-xl p-10 text-center rotate-1">
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-red-500 shadow" />
-        <div className="text-green-700 text-5xl mb-3">✓</div>
-        <h2 className="font-handwriting text-2xl font-bold text-green-900 mb-1">Angepinnt!</h2>
-        <p className="text-green-800 text-sm mb-5">Danke – ich habe deine Nachricht erhalten.</p>
+      <div className="bg-emerald-500/10 backdrop-blur-xl border border-emerald-400/30 rounded-3xl shadow-2xl p-10 text-center">
+        <div className="text-emerald-400 text-5xl mb-3">✓</div>
+        <h2 className="text-xl font-semibold text-emerald-300 mb-1">Nachricht gesendet!</h2>
+        <p className="text-emerald-200/70 text-sm mb-5">Vielen Dank – ich habe deine Nachricht erhalten.</p>
         <button
           onClick={() => setStatus('idle')}
-          className="text-sm text-green-900 underline hover:no-underline"
+          className="text-sm text-emerald-300 underline hover:no-underline"
         >
           Weitere Nachricht senden
         </button>
@@ -75,10 +72,8 @@ export default function MessageForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="relative bg-yellow-200 border border-yellow-300/60 rounded-sm shadow-xl p-8 space-y-5 -rotate-1"
+      className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl p-8 space-y-5"
     >
-      <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-red-500 shadow" />
-
       {/* Honeypot-Feld: per CSS versteckt, Bots füllen es aus */}
       <input
         type="text"
@@ -92,8 +87,8 @@ export default function MessageForm() {
       />
 
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-stone-700 mb-1.5">
-          Name <span className="text-red-600">*</span>
+        <label htmlFor="name" className="block text-sm font-medium text-white/80 mb-1.5">
+          Name <span className="text-fuchsia-400">*</span>
         </label>
         <input
           id="name"
@@ -104,29 +99,13 @@ export default function MessageForm() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Dein Name"
-          className="w-full bg-white border border-stone-300 text-stone-900 placeholder-stone-400 rounded px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition"
+          className="w-full bg-white/5 border border-white/10 text-white placeholder-white/30 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400 focus:border-transparent transition"
         />
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-stone-700 mb-1.5">
-          E-Mail{' '}
-          <span className="font-normal text-stone-500">(optional)</span>
-        </label>
-        <input
-          id="email"
-          type="email"
-          maxLength={200}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="deine@email.de"
-          className="w-full bg-white border border-stone-300 text-stone-900 placeholder-stone-400 rounded px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="content" className="block text-sm font-medium text-stone-700 mb-1.5">
-          Nachricht <span className="text-red-600">*</span>
+        <label htmlFor="content" className="block text-sm font-medium text-white/80 mb-1.5">
+          Nachricht <span className="text-fuchsia-400">*</span>
         </label>
         <textarea
           id="content"
@@ -137,13 +116,13 @@ export default function MessageForm() {
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="Deine Nachricht..."
-          className="w-full bg-white border border-stone-300 text-stone-900 placeholder-stone-400 rounded px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition resize-y"
+          className="w-full bg-white/5 border border-white/10 text-white placeholder-white/30 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400 focus:border-transparent transition resize-y"
         />
-        <p className="text-xs text-stone-500 mt-1 text-right">{content.length} / 2000</p>
+        <p className="text-xs text-white/40 mt-1 text-right">{content.length} / 2000</p>
       </div>
 
       {status === 'error' && (
-        <div className="bg-red-100 border border-red-300 rounded p-3 text-sm text-red-700">
+        <div className="bg-red-500/10 border border-red-400/30 rounded-xl p-3 text-sm text-red-300">
           {errorMsg}
         </div>
       )}
@@ -151,9 +130,9 @@ export default function MessageForm() {
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="w-full bg-orange-400 hover:bg-orange-300 disabled:opacity-50 disabled:cursor-not-allowed border border-orange-500/40 text-stone-900 font-medium py-3 rounded shadow-sm transition-colors text-sm"
+        className="w-full bg-gradient-to-r from-fuchsia-500 to-indigo-500 hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium py-3 rounded-xl transition-opacity text-sm"
       >
-        {status === 'loading' ? 'Wird angepinnt…' : 'Anpinnen'}
+        {status === 'loading' ? 'Wird gesendet…' : 'Nachricht senden'}
       </button>
     </form>
   )
